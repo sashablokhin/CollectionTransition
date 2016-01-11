@@ -12,6 +12,8 @@
 		AB0C8EFD1C43E7DF00A0A76B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB0C8EFB1C43E7DF00A0A76B /* Main.storyboard */; };
 		AB0C8EFF1C43E7DF00A0A76B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB0C8EFE1C43E7DF00A0A76B /* Assets.xcassets */; };
 		AB0C8F021C43E7DF00A0A76B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB0C8F001C43E7DF00A0A76B /* LaunchScreen.storyboard */; };
+		AB0C8F0A1C43ECF600A0A76B /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0C8F091C43ECF600A0A76B /* ImageCollectionViewCell.swift */; };
+		AB0C8F0C1C43F49500A0A76B /* CustomFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0C8F0B1C43F49500A0A76B /* CustomFlowLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		AB0C8EFE1C43E7DF00A0A76B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB0C8F011C43E7DF00A0A76B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AB0C8F031C43E7DF00A0A76B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB0C8F091C43ECF600A0A76B /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		AB0C8F0B1C43F49500A0A76B /* CustomFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFlowLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,8 @@
 			children = (
 				AB0C8EF71C43E7DF00A0A76B /* AppDelegate.swift */,
 				AB0C8EF91C43E7DF00A0A76B /* ViewController.swift */,
+				AB0C8F091C43ECF600A0A76B /* ImageCollectionViewCell.swift */,
+				AB0C8F0B1C43F49500A0A76B /* CustomFlowLayout.swift */,
 				AB0C8EFB1C43E7DF00A0A76B /* Main.storyboard */,
 				AB0C8EFE1C43E7DF00A0A76B /* Assets.xcassets */,
 				AB0C8F001C43E7DF00A0A76B /* LaunchScreen.storyboard */,
@@ -135,7 +141,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB0C8F0A1C43ECF600A0A76B /* ImageCollectionViewCell.swift in Sources */,
 				AB0C8EFA1C43E7DF00A0A76B /* ViewController.swift in Sources */,
+				AB0C8F0C1C43F49500A0A76B /* CustomFlowLayout.swift in Sources */,
 				AB0C8EF81C43E7DF00A0A76B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -284,6 +292,7 @@
 				AB0C8F081C43E7DF00A0A76B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
