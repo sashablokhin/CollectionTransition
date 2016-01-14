@@ -73,11 +73,41 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="collectionView" destination="oUH-R4-Eej" id="gGy-9s-zE2"/>
+                        <segue destination="eJe-cU-rhi" kind="presentation" identifier="openDetailView" id="h9F-yG-j32"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="305" y="418"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="y9C-Ig-Jt3">
+            <objects>
+                <viewController id="eJe-cU-rhi" customClass="DetailViewController" customModule="CollectionTransition" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UkW-A1-yWp"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZiT-Wc-pUU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="b7D-UL-yd4">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YHZ-dW-swS">
+                                <rect key="frame" x="0.0" y="105" width="320" height="358"/>
+                                <animations/>
+                            </imageView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="imageToPresent" destination="YHZ-dW-swS" id="nth-IH-Yag"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wvl-sK-Tbz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="722" y="418"/>
         </scene>
     </scenes>
 </document>

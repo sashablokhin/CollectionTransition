@@ -8,9 +8,11 @@
 
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDataSource {
+class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     @IBOutlet var collectionView: UICollectionView!
+    
+    var customTransitionDelegate = ImageOpeningTransitioning()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +41,24 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         
         return cell
     }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        self.performSegueWithIdentifier("openDetailView", sender: indexPath)
+    }
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "openDetailView" {
+            let detailViewController = segue.destinationViewController as! DetailViewController
+            detailViewController.transitioningDelegate = customTransitionDelegate
+            
+            if let indexPath = sender as? NSIndexPath {
+                let imageName = "img_\(imageIndex(indexPath.row))"
+                detailViewController.image = UIImage(named: imageName)
+            }
+        }
+    }
+    
     
     // MARK: - Supporting functions
     
