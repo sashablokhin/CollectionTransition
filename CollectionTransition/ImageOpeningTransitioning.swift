@@ -8,58 +8,21 @@
 
 import UIKit
 
-class ImageOpeningTransitioning: NSObject, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning {
+class ImageOpeningTransitioning: NSObject, UIViewControllerTransitioningDelegate {
     
-    private var presenting = false
+    let imagePresent = ImagePresentTransitioning()
+    let imageDismiss = ImageDismissTransitioning()
     
-    // MARK: - UIViewControllerAnimatedTransitioning
-    
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return 0.5
-    }
-
-    
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let sourceViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as! ViewController
-        let targetViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
-        let containerView = transitionContext.containerView()
-        let animationDuration = transitionDuration(transitionContext)
         
-        let selectedIndexPath = sourceViewController.collectionView.indexPathsForSelectedItems()?.first
-        let selectedCell = sourceViewController.collectionView.cellForItemAtIndexPath(selectedIndexPath!) as! ImageCollectionViewCell
-        
-        let selectedImage = selectedCell.imageView.image
-        
-        /////
-        
-        let selectedCellsFrame = containerView?.convertRect(selectedCell.imageView.frame, fromView: selectedCell.imageView.superview)
-        
-        let selectedImageSnapshot = selectedCell.imageView.snapshotViewAfterScreenUpdates(true)
-        selectedImageSnapshot.frame = selectedCellsFrame!
-        
-        containerView?.addSubview(selectedImageSnapshot)
-        
-        let whiteBackgroundView = UIView(frame: sourceViewController.view.frame)
-        whiteBackgroundView.backgroundColor = UIColor.whiteColor()
-        containerView?.insertSubview(whiteBackgroundView, belowSubview: selectedImageSnapshot)
-
-        /////
-        
-        //CGRect imageViewFinalFrame = [containerView convertRect:CGRectMake(0.0, 0.0, CGRectGetWidth(targetViewController.view.frame), CGRectGetHeight(targetViewController.view.frame)) fromView:targetViewController.view];
-
-    }
-    
     // MARK: - UIViewControllerTransitioningDelegate
     
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        self.presenting = true
-        return self
+        return imagePresent
     }
     
 
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        self.presenting = false
-        return self
+        return imageDismiss
     }
 
 }

@@ -16,6 +16,8 @@
 		AB0C8F0C1C43F49500A0A76B /* CustomFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0C8F0B1C43F49500A0A76B /* CustomFlowLayout.swift */; };
 		AB0C8F0E1C46CC4D00A0A76B /* ImageOpeningTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0C8F0D1C46CC4D00A0A76B /* ImageOpeningTransitioning.swift */; };
 		AB0C8F101C46D75000A0A76B /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0C8F0F1C46D75000A0A76B /* DetailViewController.swift */; };
+		ABAA35AC1C47C4EA003566E5 /* ImagePresentTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAA35AB1C47C4EA003566E5 /* ImagePresentTransitioning.swift */; };
+		ABAA35AE1C47C531003566E5 /* ImageDismissTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAA35AD1C47C531003566E5 /* ImageDismissTransitioning.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		AB0C8F0B1C43F49500A0A76B /* CustomFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFlowLayout.swift; sourceTree = "<group>"; };
 		AB0C8F0D1C46CC4D00A0A76B /* ImageOpeningTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageOpeningTransitioning.swift; sourceTree = "<group>"; };
 		AB0C8F0F1C46D75000A0A76B /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		ABAA35AB1C47C4EA003566E5 /* ImagePresentTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePresentTransitioning.swift; sourceTree = "<group>"; };
+		ABAA35AD1C47C531003566E5 /* ImageDismissTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDismissTransitioning.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,8 @@
 				AB0C8F0F1C46D75000A0A76B /* DetailViewController.swift */,
 				AB0C8F091C43ECF600A0A76B /* ImageCollectionViewCell.swift */,
 				AB0C8F0B1C43F49500A0A76B /* CustomFlowLayout.swift */,
+				ABAA35AB1C47C4EA003566E5 /* ImagePresentTransitioning.swift */,
+				ABAA35AD1C47C531003566E5 /* ImageDismissTransitioning.swift */,
 				AB0C8F0D1C46CC4D00A0A76B /* ImageOpeningTransitioning.swift */,
 				AB0C8EFB1C43E7DF00A0A76B /* Main.storyboard */,
 				AB0C8EFE1C43E7DF00A0A76B /* Assets.xcassets */,
@@ -147,7 +153,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABAA35AC1C47C4EA003566E5 /* ImagePresentTransitioning.swift in Sources */,
 				AB0C8F0A1C43ECF600A0A76B /* ImageCollectionViewCell.swift in Sources */,
+				ABAA35AE1C47C531003566E5 /* ImageDismissTransitioning.swift in Sources */,
 				AB0C8EFA1C43E7DF00A0A76B /* ViewController.swift in Sources */,
 				AB0C8F0E1C46CC4D00A0A76B /* ImageOpeningTransitioning.swift in Sources */,
 				AB0C8F101C46D75000A0A76B /* DetailViewController.swift in Sources */,
