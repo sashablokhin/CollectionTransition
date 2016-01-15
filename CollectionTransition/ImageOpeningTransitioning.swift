@@ -24,5 +24,8 @@ class ImageOpeningTransitioning: NSObject, UIViewControllerTransitioningDelegate
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return imageDismiss
     }
-
+    
+    func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return imageDismiss.interactive ? imageDismiss : nil
+    }
 }

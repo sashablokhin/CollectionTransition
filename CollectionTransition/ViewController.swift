@@ -52,6 +52,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             let detailViewController = segue.destinationViewController as! DetailViewController
             detailViewController.transitioningDelegate = customTransitionDelegate
             
+            customTransitionDelegate.imageDismiss.detailViewController = detailViewController
+            
             if let indexPath = sender as? NSIndexPath {
                 let imageName = "img_\(imageIndex(indexPath.row))"
                 detailViewController.image = UIImage(named: imageName)
