@@ -98,21 +98,12 @@
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cg1-UT-qvL">
-                                <rect key="frame" x="141" y="518" width="39" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Close"/>
-                                <connections>
-                                    <action selector="closeButtonPressed:" destination="eJe-cU-rhi" eventType="touchUpInside" id="OEc-SP-L2N"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="YHZ-dW-swS" secondAttribute="trailing" id="AGv-8Y-fLK"/>
                             <constraint firstItem="YHZ-dW-swS" firstAttribute="top" secondItem="b7D-UL-yd4" secondAttribute="top" id="BvU-eh-Q9u"/>
-                            <constraint firstItem="Cg1-UT-qvL" firstAttribute="centerX" secondItem="b7D-UL-yd4" secondAttribute="centerX" id="USa-5R-469"/>
                             <constraint firstItem="YHZ-dW-swS" firstAttribute="leading" secondItem="b7D-UL-yd4" secondAttribute="leading" id="Uhg-cM-NI6"/>
                             <constraint firstItem="ZiT-Wc-pUU" firstAttribute="top" secondItem="YHZ-dW-swS" secondAttribute="bottom" id="av3-g3-kCW"/>
                         </constraints>

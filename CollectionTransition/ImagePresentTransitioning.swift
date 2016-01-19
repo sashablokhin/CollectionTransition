@@ -65,6 +65,8 @@ class ImagePresentTransitioning: NSObject, UIViewControllerAnimatedTransitioning
                 
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
                 
+                blackBackgroundView.removeFromSuperview()
+                
                 selectedImageWrapperView.removeFromSuperview()
                 UIApplication.sharedApplication().keyWindow?.addSubview(targetViewController.view)
         }

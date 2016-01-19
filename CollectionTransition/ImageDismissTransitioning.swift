@@ -13,9 +13,16 @@ class ImageDismissTransitioning: UIPercentDrivenInteractiveTransition, UIViewCon
     
     var interactive = false
     
+    private var lastImageLocation = CGPointZero
+    
+    private var transitionContext: UIViewControllerContextTransitioning?
+    
+    private var sourceViewController: DetailViewController?
+    private var targetViewController: ViewController?
+    
     private var exitPanGesture: UIPanGestureRecognizer!
     
-    var detailViewController: UIViewController! {
+    var detailViewController: DetailViewController! {
         didSet {
             self.exitPanGesture = UIPanGestureRecognizer()
             self.exitPanGesture.addTarget(self, action: "handleOffstagePan:")
@@ -23,10 +30,11 @@ class ImageDismissTransitioning: UIPercentDrivenInteractiveTransition, UIViewCon
         }
     }
     
+    
     func handleOffstagePan(pan: UIPanGestureRecognizer) {
         // how much distance have we panned in reference to the parent view?
         let translation = pan.translationInView(pan.view!)
-        let velocity = pan.velocityInView(pan.view!)
+        //let velocity = pan.velocityInView(pan.view!)
         
         // do some math to translate this to a percentage based value
         let d =  translation.y / CGRectGetWidth(pan.view!.bounds)
@@ -36,21 +44,26 @@ class ImageDismissTransitioning: UIPercentDrivenInteractiveTransition, UIViewCon
             
         case UIGestureRecognizerState.Began:
             // set our interactive flag to true
+            lastImageLocation = detailViewController.imageToPresent.center
+            
             self.interactive = true
             
             self.detailViewController.dismissViewControllerAnimated(true, completion: nil)
+            
             break
             
         case UIGestureRecognizerState.Changed:
-            
             // update progress of the transition
             
-            if velocity.y < 0 {
-                self.updateInteractiveTransition(-d)
-            } else {
-                self.updateInteractiveTransition(d)
-            }
-
+            let newCenterPoint = CGPointMake(lastImageLocation.x, lastImageLocation.y + translation.y)
+            
+            detailViewController.imageToPresent.center = newCenterPoint
+            
+            let verticalDelta: CGFloat = newCenterPoint.y - lastImageLocation.y
+            let alpha = backgroundAlphaForPanningWithVerticalDelta(verticalDelta)
+            
+            sourceViewController!.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(alpha)
+            
             break
             
         default: // .Ended, .Cancelled, .Failed ...
@@ -58,10 +71,10 @@ class ImageDismissTransitioning: UIPercentDrivenInteractiveTransition, UIViewCon
             // return flag to false and finish the transition
             self.interactive = false
             
-            if abs(d) > 0.4 {
-                self.finishInteractiveTransition()
+            if abs(d) > 0.3 {
+                finishInteractiveTransition()
             } else {
-                self.cancelInteractiveTransition()
+                cancelInteractiveTransition()
             }
         }
     }
@@ -73,72 +86,83 @@ class ImageDismissTransitioning: UIPercentDrivenInteractiveTransition, UIViewCon
     
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let sourceViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as! DetailViewController
-        let targetViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as! ViewController
+    }
+    
+    
+    override func startInteractiveTransition(transitionContext: UIViewControllerContextTransitioning) {
         
-        let containerView = transitionContext.containerView()
-        let animationDuration = transitionDuration(transitionContext)
+        self.transitionContext = transitionContext
         
-        let snapshot = sourceViewController.imageToPresent.snapshotViewAfterScreenUpdates(false)
-        snapshot.frame = containerView!.convertRect(sourceViewController.imageToPresent.frame, fromView: sourceViewController.imageToPresent.superview)
+        sourceViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as? DetailViewController
+        targetViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as? ViewController
         
-        snapshot.autoresizingMask = [.FlexibleHeight, .FlexibleWidth, .FlexibleTopMargin, .FlexibleBottomMargin]
+        transitionContext.containerView()?.addSubview(targetViewController!.view)
+        transitionContext.containerView()?.addSubview(sourceViewController!.view)
         
-        sourceViewController.imageToPresent.alpha = 0.0
+        sourceViewController!.view.backgroundColor = UIColor.blackColor()
+    }
+    
+    
+    override func finishInteractiveTransition() {
         
+        let containerView = transitionContext!.containerView()
         
-        // hide the target cell's imageView
-        
-        let selectedIndexPath = targetViewController.collectionView.indexPathsForSelectedItems()?.first
-        let selectedCell = targetViewController.collectionView.cellForItemAtIndexPath(selectedIndexPath!) as! ImageCollectionViewCell
+        let selectedIndexPath = targetViewController!.collectionView.indexPathsForSelectedItems()?.first
+        let selectedCell = targetViewController!.collectionView.cellForItemAtIndexPath(selectedIndexPath!) as! ImageCollectionViewCell
         selectedCell.imageView.alpha = 0.0
-        selectedCell.imageView.transform = CGAffineTransformMakeScale(1 , 1.77)
+        //selectedCell.imageView.transform = CGAffineTransformMakeScale(1 , 1.77)
         
-        targetViewController.view.frame = transitionContext.finalFrameForViewController(targetViewController)
-        containerView?.insertSubview(targetViewController.view, belowSubview: sourceViewController.view)
-        
-        let imageWrapperView = UIView(frame: containerView!.convertRect(sourceViewController.imageToPresent.frame, fromView: sourceViewController.imageToPresent.superview))
-        
-        imageWrapperView.clipsToBounds = true
-        imageWrapperView.addSubview(snapshot)
-        
-        containerView!.addSubview(imageWrapperView)
-        
-        let blackBackgroundView = UIView(frame: sourceViewController.view.frame)
-        blackBackgroundView.backgroundColor = UIColor.blackColor()
-        containerView!.insertSubview(blackBackgroundView, belowSubview: imageWrapperView)
-        
-        
-        UIView.animateWithDuration(animationDuration, animations: { () -> Void in
+        UIView.animateWithDuration(transitionDuration(transitionContext), animations: { () -> Void in
             
-            blackBackgroundView.alpha = 0.0
-            
-            imageWrapperView.frame = containerView!.convertRect(selectedCell.imageView.frame, fromView: selectedCell.imageView.superview)
-  
+            self.sourceViewController!.view.backgroundColor = UIColor.clearColor()
+            self.sourceViewController!.imageToPresent.frame = containerView!.convertRect(selectedCell.imageView.frame, fromView: selectedCell.imageView.superview)
             
             }) { (finished) -> Void in
-                if !transitionContext.transitionWasCancelled() {
-                    transitionContext.completeTransition(true)
+                self.transitionContext!.completeTransition(true)
+                self.sourceViewController!.view.alpha = 0.0
                     
-                    sourceViewController.view.alpha = 0.0
-                    snapshot.alpha = 0.0
-                    
-                    
-                    blackBackgroundView.removeFromSuperview()
-                    snapshot.removeFromSuperview()
-                    imageWrapperView.removeFromSuperview()
-                    sourceViewController.imageToPresent.hidden = false
-                    
-                    selectedCell.imageView.alpha = 1.0
-                    selectedCell.imageView.transform = CGAffineTransformIdentity
-                } else {
-                    transitionContext.completeTransition(false)
-                    
-                    sourceViewController.imageToPresent.alpha = 1.0
-                }
+                selectedCell.imageView.alpha = 1.0
+                selectedCell.imageView.transform = CGAffineTransformIdentity
         }
     }
+    
+    
+    
+    override func cancelInteractiveTransition() {
+        UIView.animateWithDuration(transitionDuration(transitionContext), animations: { () -> Void in
+            
+            self.sourceViewController!.view.backgroundColor = UIColor.blackColor()
+            self.sourceViewController!.imageToPresent.center = self.lastImageLocation
+            
+            }) { (finished) -> Void in
+                self.transitionContext!.completeTransition(false)
+        }
+    }
+    
+    
+    // MARK: - Supporting functions
+    
+    func backgroundAlphaForPanningWithVerticalDelta(verticalDelta: CGFloat) -> CGFloat {
+        let startingAlpha: CGFloat = 1.0
+        let finalAlpha: CGFloat = 0.1
+        let totalAvailableAlpha: CGFloat = startingAlpha - finalAlpha
+        
+        let maximumDelta: CGFloat = CGRectGetHeight(self.transitionContext!.viewForKey(UITransitionContextFromViewKey)!.bounds) / 2.0; // Arbitrary value.
+        let deltaAsPercentageOfMaximum: CGFloat = min(abs(verticalDelta) / maximumDelta, 1.0)
+        
+        return startingAlpha - (deltaAsPercentageOfMaximum * totalAvailableAlpha);
+    }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
