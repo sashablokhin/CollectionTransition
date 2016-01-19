@@ -114,6 +114,8 @@ class ImageDismissTransitioning: UIPercentDrivenInteractiveTransition, UIViewCon
         
         UIView.animateWithDuration(transitionDuration(transitionContext), animations: { () -> Void in
             
+            self.targetViewController!.collectionView.transform = CGAffineTransformMakeScale(1 , 1)
+            
             self.sourceViewController!.view.backgroundColor = UIColor.clearColor()
             self.sourceViewController!.imageToPresent.frame = containerView!.convertRect(selectedCell.imageView.frame, fromView: selectedCell.imageView.superview)
             

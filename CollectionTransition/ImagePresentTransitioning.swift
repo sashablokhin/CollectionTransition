@@ -56,6 +56,8 @@ class ImagePresentTransitioning: NSObject, UIViewControllerAnimatedTransitioning
             selectedImageWrapperView.frame = imageViewFinalFrame
             imageView.frame = imageViewFinalFrame
             
+            sourceViewController.collectionView.transform = CGAffineTransformMakeScale(0.95 , 0.95)
+            
             blackBackgroundView.alpha = 1
             
             }) { (finished) -> Void in
